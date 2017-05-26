@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Markov Mashey</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	 crossorigin="anonymous">
+
+	</script>
+	<style>
+		body {
+			text-align: center;
+			font-family: monospace;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header id="tile">
+		<h1>Boil 'em, Mash 'em, Stick 'em In A STEEEW!!!!</h1>
+	</header>
+	</div>
+	<div>
+
+	</div>
+	<div>
+		<!--input of user names, whether you want a tweet or haiku and result-->
+		<div class="form-group">
+			Enter One Username: <input class="tweet" type="text" name="username" placeholder="User Name" value='jeffreygoldbIum'>
+			<button id="submitMarkov" type="submit">Mash One Potato!</button>
+		</div>
+		<div class="oneTweet" name="oneTweet"></div>
+	</div>
+	<hr>
+
+	<!--
+	____              _    _         ,__ __              _     
+  (|   \            | |  | |       /|  |  |            | |    
+   |    | __        | |  | |  _     |  |  |   __,   ,  | |    
+  _|    |/  \_|   | |/ \_|/  |/     |  |  |  /  |  / \_|/ \   
+ (/\___/ \__/  \_/|_/\_/ |__/|__/   |  |  |_/\_/|_/ \/ |   |_/
+                                                              -->
+
+	<div>
+		<div>
+			<!--first user-->
+			First Username:
+			<input id="mashup" type="text" name="user" value="RealGrumpyCat">
+			<!--second user-->
+			Second Username:
+			<input class="mashup" type="text" name="user2" value="Trump_Developer">
+			<button id="mashTwo" type="submit">Mash Two Potatoes!</button>
+		</div>
+		<div class="mash" name="tweet" width="50%" border="solid 2px purple"></div>
+	</div>
+	<script>
+		$(document).ready(function () {
+			$("#submitMarkov").on("click", function (res) {
+				$.get("/api/tweet",
+					{
+						user: $(".tweet").val()
+					},
+					function (res) {
+						$(".oneTweet").text(res);
+					});
+			});
+
+
+			// 	  ____              _    _         ,__ __              _     
+			//   (|   \            | |  | |       /|  |  |            | |    
+			//    |    | __        | |  | |  _     |  |  |   __,   ,  | |    
+			//   _|    |/  \_|   | |/ \_|/  |/     |  |  |  /  |  / \_|/ \   
+			//  (/\___/ \__/  \_/|_/\_/ |__/|__/   |  |  |_/\_/|_/ \/ |   |_/
+
+			$("#mashTwo").on('click', function (res) {
+				$.get('/api/tweets/mash',
+					{
+						user: $("#mashup").val(),
+						user2: $(".mashup").val()
+					},
+					function (res) {
+						$('.mash').text(res);
+					}
+				);
+			});
+		});
+	</script>
+</body>
+
+</html>
